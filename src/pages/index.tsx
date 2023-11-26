@@ -91,14 +91,14 @@ const IndexPage = () => {
         <TempContainer>
           <p>{Math.round(temp)}°</p>
           <p>{Math.round(temp_feel)}°</p>
-          <p>{temp_min}°</p>
-          <p>{temp_max}°</p>
+          <p>{Math.round(temp_min)}°</p>
+          <p>{Math.round(temp_max)}°</p>
           <p>{humidity}%</p>
           <p>{pressure} hPa</p>
         </TempContainer>
         <SunContainer>
-          <p>{sunrise}</p>
-          <p>{sunset}</p>
+          <p>{Date(sunrise)}</p>
+          <p>{Date(sunset)}</p>
         </SunContainer>
         <WeatherContainer>
           <p>{weather}</p>
