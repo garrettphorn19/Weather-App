@@ -10,9 +10,9 @@ const api_base = process.env.WEATHER_LINK_BASE
 
 const IndexPage: React.FC<PageProps> = () => {
   // City States
-  const [display_city, setDisplayCity] = useState("New York, NY")
-  const [city_name, setCityName] = useState("New York")
-  const [state_code, setStateCode] = useState("NY")
+  const [display_city, setDisplayCity] = useState()
+  const [city_name, setCityName] = useState("")
+  const [state_code, setStateCode] = useState("")
   const [country_code, setCountryCode] = useState("USA")
 
   // Tempurature States
@@ -36,6 +36,9 @@ const IndexPage: React.FC<PageProps> = () => {
   const [wind_speed, setWindSpeed] = useState()
   const [wind_deg, setWindDeg] = useState()
 
+  // Error States
+  const [error, setError] = useState()
+
   useEffect(() => {
     searchWeather()
   }, [])
@@ -54,7 +57,6 @@ const IndexPage: React.FC<PageProps> = () => {
         `${api_base}q=${city_name},${state_code},${country_code}&appid=${api_key}&units=imperial`
       )
       .then((res) => {
-        console.log(res.data)
         setDisplayCity(`${city_name}, ${state_code}`)
         setTemp(res.data.main.temp)
         setTempFeel(res.data.main.feels_like)
@@ -69,6 +71,9 @@ const IndexPage: React.FC<PageProps> = () => {
         setWeatherIcon(res.data.weather[0].icon)
         setWindSpeed(res.data.wind.speed)
         setWindDeg(res.data.wind.deg)
+      })
+      .catch((err) => {
+        setError(err)
       })
   }
 
