@@ -10,7 +10,7 @@ const api_key = process.env.WEATHER_API_KEY
 const api_base = process.env.WEATHER_LINK_BASE
 
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage = () => {
   // City States
   const [display_city, setDisplayCity] = useState("")
   const [city_name, setCityName] = useState("New York")
@@ -39,7 +39,7 @@ const IndexPage: React.FC<PageProps> = () => {
   const [wind_deg, setWindDeg] = useState()
 
   // Error States
-  const [error, setError] = useState()
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     searchWeather()
@@ -75,7 +75,7 @@ const IndexPage: React.FC<PageProps> = () => {
         setWindDeg(res.data.wind.deg)
       })
       .catch((err) => {
-        setError(err)
+        setError(true)
       })
   }
 
@@ -87,20 +87,28 @@ const IndexPage: React.FC<PageProps> = () => {
           <StateInput type="text" id="state_code" placeholder="State" onChange={handleUpdateState} />
           <SearchButton onClick={searchWeather}>Search</SearchButton>
         </InputContainer>
-        <WeatherContainer>
-          <p>{temp}F</p>
-          <p>{temp_feel}F</p>
-          <p>{temp_min}F</p>
-          <p>{temp_max}F</p>
+        <WidgetContainer>
+        <TempContainer>
+          <p>{Math.round(temp)}°</p>
+          <p>{Math.round(temp_feel)}°</p>
+          <p>{temp_min}°</p>
+          <p>{temp_max}°</p>
           <p>{humidity}%</p>
           <p>{pressure} hPa</p>
+        </TempContainer>
+        <SunContainer>
           <p>{sunrise}</p>
           <p>{sunset}</p>
+        </SunContainer>
+        <WeatherContainer>
           <p>{weather}</p>
           <p>{weather_description}</p>
+        </WeatherContainer>
+        <WindContainer>
           <p>{wind_speed} mph</p>
           <p>{wind_deg} deg</p>
-        </WeatherContainer>
+        </WindContainer>
+        </WidgetContainer>
       </Container>
   )
 }
@@ -129,7 +137,31 @@ const CityInput = styled.input``
 const StateInput = styled.input``
 const SearchButton = styled.button``
 
-const WeatherContainer = styled.div``
+const WidgetContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const WeatherContainer = styled.div`
+  font-family: "Neue Montreal", sans-serif;
+  text-align: center;
+`
+
+const WindContainer = styled.div`
+  font-family: "Neue Montreal", sans-serif;
+  text-align: center;
+`
+
+const TempContainer = styled.div`
+  font-family: "Neue Montreal", sans-serif;
+  text-align: center;
+`
+
+const SunContainer = styled.div`
+  font-family: "Neue Montreal", sans-serif;
+  text-align: center;
+`
 
 export default IndexPage
 
