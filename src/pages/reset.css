@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Editorial Old';
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url(/fonts/PPEditorialOld-Regular.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url(/fonts/PPNeueMontreal-Regular.woff2) format("woff2");
+}
+
 html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;

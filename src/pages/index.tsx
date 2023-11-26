@@ -13,8 +13,8 @@ const api_base = process.env.WEATHER_LINK_BASE
 const IndexPage: React.FC<PageProps> = () => {
   // City States
   const [display_city, setDisplayCity] = useState("")
-  const [city_name, setCityName] = useState("")
-  const [state_code, setStateCode] = useState("")
+  const [city_name, setCityName] = useState("New York")
+  const [state_code, setStateCode] = useState("NY")
   const [country_code, setCountryCode] = useState("USA")
 
   // Tempurature States
@@ -68,7 +68,7 @@ const IndexPage: React.FC<PageProps> = () => {
         setPressure(res.data.main.pressure)
         setSunrise(res.data.sys.sunrise)
         setSunset(res.data.sys.sunset)
-        setWeather(res.data.weather[0])
+        setWeather(res.data.weather[0].main)
         setWeatherDescription(res.data.weather[0].description)
         setWeatherIcon(res.data.weather[0].icon)
         setWindSpeed(res.data.wind.speed)
@@ -96,6 +96,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <p>{pressure} hPa</p>
           <p>{sunrise}</p>
           <p>{sunset}</p>
+          <p>{weather}</p>
           <p>{weather_description}</p>
           <p>{wind_speed} mph</p>
           <p>{wind_deg} deg</p>
@@ -108,13 +109,22 @@ const Container = styled.div`
   background-color: #282c34;
   color: white;
 
-  padding: 0;
-  margin: 0;
+  height: 100%;
+  width: 100vw;
+
+  padding: 1.5rem 5rem;
 `
 
-const Title = styled.h1``
+const Title = styled.h1`
+  font-family: 'Editorial Old', serif;
+  font-size: 4rem;
+  text-align: center;
+`
 
-const InputContainer = styled.div``
+const InputContainer = styled.div`
+  font-family: "Neue Montreal", sans-serif;
+  text-align: center;
+`
 const CityInput = styled.input``
 const StateInput = styled.input``
 const SearchButton = styled.button``
