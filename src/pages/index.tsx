@@ -4,13 +4,15 @@ import type { HeadFC, PageProps } from "gatsby"
 import styled from "styled-components"
 import axios from "axios"
 
+import "./reset.css"
+
 const api_key = process.env.WEATHER_API_KEY
 const api_base = process.env.WEATHER_LINK_BASE
 
 
 const IndexPage: React.FC<PageProps> = () => {
   // City States
-  const [display_city, setDisplayCity] = useState()
+  const [display_city, setDisplayCity] = useState("")
   const [city_name, setCityName] = useState("")
   const [state_code, setStateCode] = useState("")
   const [country_code, setCountryCode] = useState("USA")
@@ -102,7 +104,14 @@ const IndexPage: React.FC<PageProps> = () => {
   )
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  background-color: #282c34;
+  color: white;
+
+  padding: 0;
+  margin: 0;
+`
+
 const Title = styled.h1``
 
 const InputContainer = styled.div``
