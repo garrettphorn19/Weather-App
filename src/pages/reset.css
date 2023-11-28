@@ -20,6 +20,7 @@ html {
     overflow-y: scroll;
   }
   body {
+    /* background: linear-gradient(45deg, rgba(15,124,176,1) 0%, rgba(48,152,217,1) 28%, rgba(61,173,217,1) 63%, rgba(194,224,242,1) 100%);  */
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

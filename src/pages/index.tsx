@@ -4,10 +4,12 @@ import type { HeadFC, PageProps } from "gatsby"
 import styled from "styled-components"
 import axios from "axios"
 
+import TempWidget from "./Widgets/TempWidget"
+
 import "./reset.css"
 
 const api_key = process.env.WEATHER_API_KEY
-const api_base = process.env.WEATHER_LINK_BASE
+const api_base = process.env.WEATHER_CURRENT_LINK_BASE
 
 
 const IndexPage = () => {
@@ -85,82 +87,211 @@ const IndexPage = () => {
         <InputContainer>
           <CityInput type="text" id="city_name" placeholder="City" onChange={handleUpdateCity} />
           <StateInput type="text" id="state_code" placeholder="State" onChange={handleUpdateState} />
-          <SearchButton onClick={searchWeather}>Search</SearchButton>
+          <SearchButton onClick={searchWeather}>GO</SearchButton>
         </InputContainer>
         <WidgetContainer>
-        <TempContainer>
-          <p>{Math.round(temp)}°</p>
-          <p>{Math.round(temp_feel)}°</p>
-          <p>{Math.round(temp_min)}°</p>
-          <p>{Math.round(temp_max)}°</p>
-          <p>{humidity}%</p>
-          <p>{pressure} hPa</p>
-        </TempContainer>
-        <SunContainer>
-          <p>{Date(sunrise)}</p>
-          <p>{Date(sunset)}</p>
-        </SunContainer>
-        <WeatherContainer>
-          <p>{weather}</p>
-          <p>{weather_description}</p>
-        </WeatherContainer>
-        <WindContainer>
-          <p>{wind_speed} mph</p>
-          <p>{wind_deg} deg</p>
-        </WindContainer>
+          <TempWidget temp={temp} temp_min={temp_min} temp_max={temp_max} />
+          <WeatherWidget weather={weather} weather_description={weather_description} />
+          <PressureWidget humidity={humidity} pressure={pressure} />
+          <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
+          <SunWidget sunrise={sunrise} sunset={sunset} />
         </WidgetContainer>
       </Container>
   )
 }
 
+
+
+const WeatherWidget = (props) => {
+  return (
+    <WeatherContainer>
+      <p>{props.weather}</p>
+      <p>{props.weather_description}</p>
+    </WeatherContainer>
+  )
+}
+
+const PressureWidget = (props) => {
+  return (
+    <PressureContainer>
+      <p>{props.humidity}%</p>
+      <p>{props.pressure} hPa</p>
+    </PressureContainer>
+  )
+}
+
+const WindWidget = (props) => {
+  return (
+    <WindContainer>
+      <p>{props.wind_speed} mph</p>
+      <p>{props.wind_deg}°</p>
+    </WindContainer>
+  )
+}
+
+const SunWidget = (props) => {
+  return (
+    <SunContainer>
+      <p>{props.sunrise}</p>
+      <p>{props.sunset}</p>
+    </SunContainer>
+  )
+}
+
 const Container = styled.div`
-  background-color: #282c34;
-  color: white;
+  display: flex;
+  padding: 22px 80px;
+  flex-direction: column;
+  align-items: center;
 
-  height: 100%;
-  width: 100vw;
-
-  padding: 1.5rem 5rem;
+  background: linear-gradient(73deg, #0F7CB0 -3.23%, #3098D9 32.81%, #3DADD9 78.01%, #C2E0F2 106.61%);
 `
 
 const Title = styled.h1`
+  color: #FCF5E5;
   font-family: 'Editorial Old', serif;
-  font-size: 4rem;
+  font-size: 6rem;
   text-align: center;
 `
 
 const InputContainer = styled.div`
   font-family: "Neue Montreal", sans-serif;
   text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
 `
-const CityInput = styled.input``
-const StateInput = styled.input``
-const SearchButton = styled.button``
+const CityInput = styled.input`
+  width: 300px;
+  height: 60px;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+`
+
+const StateInput = styled.input`
+  width: 150px;
+  height: 60px;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+`
+
+const SearchButton = styled.button`
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  padding: 18px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+  border-radius: 32px;
+  background: #D9C516;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+`
 
 const WidgetContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  width: 932px;
+  padding: 32px 0px;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
 `
 
+
+
 const WeatherContainer = styled.div`
-  font-family: "Neue Montreal", sans-serif;
-  text-align: center;
+  display: flex;
+  width: 616px;
+  height: 300px;
+  padding: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
 `
 
 const WindContainer = styled.div`
-  font-family: "Neue Montreal", sans-serif;
-  text-align: center;
+ display: flex;
+  width: 300px;
+  height: 300px;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
 `
 
-const TempContainer = styled.div`
-  font-family: "Neue Montreal", sans-serif;
-  text-align: center;
+const PressureContainer = styled.div`
+  display: flex;
+  width: 300px;
+  height: 300px;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
 `
 
 const SunContainer = styled.div`
-  font-family: "Neue Montreal", sans-serif;
-  text-align: center;
+  display: flex;
+  width: 300px;
+  height: 300px;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 32px;
+  background: #FCF5E5;
+
+  /* Drop Shadow */
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
 `
 
 export default IndexPage
