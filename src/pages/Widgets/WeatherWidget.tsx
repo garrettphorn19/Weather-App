@@ -1,30 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
+import axios from "axios"
 
-const WeatherWidget = (props: {
-  weather:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-  weather_description:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-}) => {
+const api_link = process.env.WEATHER_ICON_LINK_BASE
+
+const WeatherWidget = (props) => {
+  console.log(`${api_link}${props.weather_icon}@2x.png`)
+
   return (
     <WeatherContainer>
       <p>{props.weather}</p>
       <p>{props.weather_description}</p>
+      <img src={`${api_link}${props.weather_icon}@2x.png`} alt="Icon" />
     </WeatherContainer>
   )
 }

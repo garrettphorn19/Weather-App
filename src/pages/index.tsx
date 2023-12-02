@@ -23,28 +23,28 @@ const IndexPage = () => {
   const [country_code, setCountryCode] = useState("USA")
 
   // Tempurature States
-  const [temp, setTemp] = useState()
-  const [temp_feel, setTempFeel] = useState()
-  const [temp_min, setTempMin] = useState()
-  const [temp_max, setTempMax] = useState()
-  const [humidity, setHumidity] = useState()
-  const [pressure, setPressure] = useState()
+  const [temp, setTemp] = useState<number>(0)
+  const [temp_feel, setTempFeel] = useState<number>(0)
+  const [temp_min, setTempMin] = useState<number>(0)
+  const [temp_max, setTempMax] = useState<number>(0)
+  const [humidity, setHumidity] = useState<number>(0)
+  const [pressure, setPressure] = useState<number>(0)
 
   // Sun States
-  const [sunrise, setSunrise] = useState()
-  const [sunset, setSunset] = useState()
+  const [sunrise, setSunrise] = useState<number>(0)
+  const [sunset, setSunset] = useState<number>(0)
 
   // Weather States
-  const [weather, setWeather] = useState()
-  const [weather_description, setWeatherDescription] = useState()
-  const [weather_icon, setWeatherIcon] = useState()
+  const [weather, setWeather] = useState<string>("")
+  const [weather_description, setWeatherDescription] = useState<string>("")
+  const [weather_icon, setWeatherIcon] = useState<string>("")
 
   // Wind States
-  const [wind_speed, setWindSpeed] = useState()
-  const [wind_deg, setWindDeg] = useState()
+  const [wind_speed, setWindSpeed] = useState<number>(0)
+  const [wind_deg, setWindDeg] = useState<number>(0)
 
   // Error States
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
     searchWeather()
@@ -107,6 +107,7 @@ const IndexPage = () => {
         <WeatherWidget
           weather={weather}
           weather_description={weather_description}
+          weather_icon={weather_icon}
         />
         <PressureWidget humidity={humidity} pressure={pressure} />
         <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
@@ -118,7 +119,7 @@ const IndexPage = () => {
 
 const Container = styled.div`
   display: flex;
-  padding: 22px 80px;
+  padding: 32px 80px;
   flex-direction: column;
   align-items: center;
 
@@ -147,6 +148,7 @@ const InputContainer = styled.div`
   align-items: flex-start;
   gap: 16px;
 `
+
 const CityInput = styled.input`
   width: 300px;
   height: 60px;
@@ -201,6 +203,17 @@ const SearchButton = styled.button`
     14px 14px 20px 0px rgba(0, 0, 0, 0.09),
     32px 31px 27px 0px rgba(0, 0, 0, 0.05),
     57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
+
+  &:hover {
+    cursor: pointer;
+    background: #c2b316;
+    scale: 1.05;
+  }
+
+  &:active {
+    background: #a89e14;
+    scale: 0.9;
+  }
 `
 
 const WidgetContainer = styled.div`
