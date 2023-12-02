@@ -5,12 +5,15 @@ import styled from "styled-components"
 import axios from "axios"
 
 import TempWidget from "./Widgets/TempWidget"
+import WeatherWidget from "./Widgets/WeatherWidget"
+import PressureWidget from "./Widgets/PressureWidget"
+import WindWidget from "./Widgets/WindWidget"
+import SunWidget from "./Widgets/SunWidget"
 
 import "./reset.css"
 
 const api_key = process.env.WEATHER_API_KEY
 const api_base = process.env.WEATHER_CURRENT_LINK_BASE
-
 
 const IndexPage = () => {
   // City States
@@ -82,59 +85,34 @@ const IndexPage = () => {
   }
 
   return (
-      <Container>
-        <Title>{display_city}</Title>
-        <InputContainer>
-          <CityInput type="text" id="city_name" placeholder="City" onChange={handleUpdateCity} />
-          <StateInput type="text" id="state_code" placeholder="State" onChange={handleUpdateState} />
-          <SearchButton onClick={searchWeather}>GO</SearchButton>
-        </InputContainer>
-        <WidgetContainer>
-          <TempWidget temp={temp} temp_min={temp_min} temp_max={temp_max} />
-          <WeatherWidget weather={weather} weather_description={weather_description} />
-          <PressureWidget humidity={humidity} pressure={pressure} />
-          <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
-          <SunWidget sunrise={sunrise} sunset={sunset} />
-        </WidgetContainer>
-      </Container>
-  )
-}
-
-
-
-const WeatherWidget = (props) => {
-  return (
-    <WeatherContainer>
-      <p>{props.weather}</p>
-      <p>{props.weather_description}</p>
-    </WeatherContainer>
-  )
-}
-
-const PressureWidget = (props) => {
-  return (
-    <PressureContainer>
-      <p>{props.humidity}%</p>
-      <p>{props.pressure} hPa</p>
-    </PressureContainer>
-  )
-}
-
-const WindWidget = (props) => {
-  return (
-    <WindContainer>
-      <p>{props.wind_speed} mph</p>
-      <p>{props.wind_deg}°</p>
-    </WindContainer>
-  )
-}
-
-const SunWidget = (props) => {
-  return (
-    <SunContainer>
-      <p>{props.sunrise}</p>
-      <p>{props.sunset}</p>
-    </SunContainer>
+    <Container>
+      <Title>{display_city}</Title>
+      <InputContainer>
+        <CityInput
+          type="text"
+          id="city_name"
+          placeholder="City"
+          onChange={handleUpdateCity}
+        />
+        <StateInput
+          type="text"
+          id="state_code"
+          placeholder="State"
+          onChange={handleUpdateState}
+        />
+        <SearchButton onClick={searchWeather}>GO</SearchButton>
+      </InputContainer>
+      <WidgetContainer>
+        <TempWidget temp={temp} temp_min={temp_min} temp_max={temp_max} />
+        <WeatherWidget
+          weather={weather}
+          weather_description={weather_description}
+        />
+        <PressureWidget humidity={humidity} pressure={pressure} />
+        <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
+        <SunWidget sunrise={sunrise} sunset={sunset} />
+      </WidgetContainer>
+    </Container>
   )
 }
 
@@ -144,12 +122,18 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  background: linear-gradient(73deg, #0F7CB0 -3.23%, #3098D9 32.81%, #3DADD9 78.01%, #C2E0F2 106.61%);
+  background: linear-gradient(
+    73deg,
+    #0f7cb0 -3.23%,
+    #3098d9 32.81%,
+    #3dadd9 78.01%,
+    #c2e0f2 106.61%
+  );
 `
 
 const Title = styled.h1`
-  color: #FCF5E5;
-  font-family: 'Editorial Old', serif;
+  color: #fcf5e5;
+  font-family: "Editorial Old", serif;
   font-size: 6rem;
   text-align: center;
 `
@@ -171,10 +155,13 @@ const CityInput = styled.input`
 
   border: none;
   border-radius: 32px;
-  background: #FCF5E5;
+  background: #fcf5e5;
 
   /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
+    14px 14px 20px 0px rgba(0, 0, 0, 0.09),
+    32px 31px 27px 0px rgba(0, 0, 0, 0.05),
+    57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
 `
 
 const StateInput = styled.input`
@@ -185,10 +172,13 @@ const StateInput = styled.input`
 
   border: none;
   border-radius: 32px;
-  background: #FCF5E5;
+  background: #fcf5e5;
 
   /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
+    14px 14px 20px 0px rgba(0, 0, 0, 0.09),
+    32px 31px 27px 0px rgba(0, 0, 0, 0.05),
+    57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
 `
 
 const SearchButton = styled.button`
@@ -204,10 +194,13 @@ const SearchButton = styled.button`
 
   border: none;
   border-radius: 32px;
-  background: #D9C516;
+  background: #d9c516;
 
   /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
+    14px 14px 20px 0px rgba(0, 0, 0, 0.09),
+    32px 31px 27px 0px rgba(0, 0, 0, 0.05),
+    57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
 `
 
 const WidgetContainer = styled.div`
@@ -219,79 +212,6 @@ const WidgetContainer = styled.div`
   align-content: flex-start;
   gap: 16px;
   flex-wrap: wrap;
-`
-
-
-
-const WeatherContainer = styled.div`
-  display: flex;
-  width: 616px;
-  height: 300px;
-  padding: 16px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 32px;
-  background: #FCF5E5;
-
-  /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
-`
-
-const WindContainer = styled.div`
- display: flex;
-  width: 300px;
-  height: 300px;
-  padding: 16px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 32px;
-  background: #FCF5E5;
-
-  /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
-`
-
-const PressureContainer = styled.div`
-  display: flex;
-  width: 300px;
-  height: 300px;
-  padding: 16px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 32px;
-  background: #FCF5E5;
-
-  /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
-`
-
-const SunContainer = styled.div`
-  display: flex;
-  width: 300px;
-  height: 300px;
-  padding: 16px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 32px;
-  background: #FCF5E5;
-
-  /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
 `
 
 export default IndexPage

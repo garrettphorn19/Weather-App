@@ -1,21 +1,25 @@
 import React from "react"
 import styled from "styled-components"
 
-const TempWidget = (props: { temp: number; temp_min: number; temp_max: number }) => {
-    return (
-      <TempContainer>
-        <CurrentTemp>{Math.round(props.temp)}</CurrentTemp>
-        <HighLowContainer>
-          <LowTemp>↓{Math.round(props.temp_min)}</LowTemp>
-          <HighTemp>↑{Math.round(props.temp_max)}</HighTemp>
-        </HighLowContainer>
-      </TempContainer>
-    )
+const TempWidget = (props: {
+  temp: number
+  temp_min: number
+  temp_max: number
+}) => {
+  return (
+    <TempContainer>
+      <CurrentTemp>{Math.round(props.temp)}</CurrentTemp>
+      <HighLowContainer>
+        <LowTemp>↓{Math.round(props.temp_min)}</LowTemp>
+        <HighTemp>↑{Math.round(props.temp_max)}</HighTemp>
+      </HighLowContainer>
+    </TempContainer>
+  )
 }
 
 export default TempWidget
 
-  const TempContainer = styled.div`
+const TempContainer = styled.div`
   display: flex;
   width: 300px;
   height: 300px;
@@ -26,10 +30,13 @@ export default TempWidget
   flex-shrink: 0;
 
   border-radius: 32px;
-  background: #F5F4E5;
+  background: #f5f4e5;
 
   /* Drop Shadow */
-  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.10), 14px 14px 20px 0px rgba(0, 0, 0, 0.09), 32px 31px 27px 0px rgba(0, 0, 0, 0.05), 57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0.00);
+  box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
+    14px 14px 20px 0px rgba(0, 0, 0, 0.09),
+    32px 31px 27px 0px rgba(0, 0, 0, 0.05),
+    57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
 `
 
 const CurrentTemp = styled.h1`
