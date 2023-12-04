@@ -30,7 +30,7 @@ const TempContainer = styled.div`
   flex-shrink: 0;
 
   border-radius: 32px;
-  background: #f5f4e5;
+  background: var(--White, #fff);
 
   /* Drop Shadow */
   box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),

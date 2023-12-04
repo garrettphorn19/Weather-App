@@ -1,26 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const WindWidget = (props: {
-  wind_speed:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-  wind_deg:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-}) => {
+const WindWidget = (props: { wind_speed: number; wind_deg: number }) => {
   return (
     <WindContainer>
       <p>{props.wind_speed} mph</p>
@@ -38,12 +19,12 @@ const WindContainer = styled.div`
   padding: 16px;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   flex-shrink: 0;
 
   border-radius: 32px;
-  background: #fcf5e5;
+  background: var(--White, #fff);
 
   /* Drop Shadow */
   box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),

@@ -1,17 +1,17 @@
 import React from "react"
 import styled from "styled-components"
 
-const PressureWidget = (props: { pressure: number }) => {
+const HumidtyWidget = (props: { humidity: number }) => {
   return (
     <Container>
-      <Value>{props.pressure} hPa</Value>
-      <Subtitle>Pressure</Subtitle>
-      <Progress $value={(props.pressure - 950) * 3} />
+      <Value>{props.humidity}%</Value>
+      <Subtitle>Humidity</Subtitle>
+      <Progress $value={props.humidity * 3} />
     </Container>
   )
 }
 
-export default PressureWidget
+export default HumidtyWidget
 
 const Container = styled.div`
   position: relative;
@@ -27,8 +27,8 @@ const Container = styled.div`
   border-radius: 32px;
   background: linear-gradient(
       0deg,
-      rgba(189, 0, 255, 0.5) 0%,
-      rgba(189, 0, 255, 0.5) 100%
+      rgba(47, 81, 255, 0.5) 0%,
+      rgba(47, 81, 255, 0.5) 100%
     ),
     #ffffff;
 
@@ -69,5 +69,5 @@ const Progress = styled.div<{ $value?: number }>`
   left: 0px;
   width: ${(props) => props.$value || 50}px;
   height: 142px;
-  background: #bd00ff;
+  background: #2f51ff;
 `

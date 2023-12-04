@@ -7,6 +7,7 @@ import axios from "axios"
 import TempWidget from "./Widgets/TempWidget"
 import WeatherWidget from "./Widgets/WeatherWidget"
 import PressureWidget from "./Widgets/PressureWidget"
+import HumidityWidget from "./Widgets/HumidityWidget"
 import WindWidget from "./Widgets/WindWidget"
 import SunWidget from "./Widgets/SunWidget"
 
@@ -104,14 +105,17 @@ const IndexPage = () => {
       </InputContainer>
       <WidgetContainer>
         <TempWidget temp={temp} temp_min={temp_min} temp_max={temp_max} />
+        <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
+        <StackedWidgetContainer>
+          <PressureWidget pressure={pressure} />
+          <HumidityWidget humidity={humidity} />
+        </StackedWidgetContainer>
+        <SunWidget sunrise={sunrise} sunset={sunset} />
         <WeatherWidget
           weather={weather}
           weather_description={weather_description}
           weather_icon={weather_icon}
         />
-        <PressureWidget humidity={humidity} pressure={pressure} />
-        <WindWidget wind_speed={wind_speed} wind_deg={wind_deg} />
-        <SunWidget sunrise={sunrise} sunset={sunset} />
       </WidgetContainer>
     </Container>
   )
@@ -122,6 +126,7 @@ const Container = styled.div`
   padding: 32px 80px;
   flex-direction: column;
   align-items: center;
+  /* z-index: -3; */
 
   background: linear-gradient(
     73deg,
@@ -133,10 +138,18 @@ const Container = styled.div`
 `
 
 const Title = styled.h1`
-  color: #fcf5e5;
+  color: var(--White, #fff);
+
+  /* Drop Shadow */
+  text-shadow: 4px 3px 11px rgba(0, 0, 0, 0.1),
+    14px 14px 20px rgba(0, 0, 0, 0.09), 32px 31px 27px rgba(0, 0, 0, 0.05),
+    57px 56px 32px rgba(0, 0, 0, 0.01), 90px 87px 35px rgba(0, 0, 0, 0);
   font-family: "Editorial Old", serif;
-  font-size: 6rem;
-  text-align: center;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
 `
 
 const InputContainer = styled.div`
@@ -157,7 +170,7 @@ const CityInput = styled.input`
 
   border: none;
   border-radius: 32px;
-  background: #fcf5e5;
+  background: #ffffff;
 
   /* Drop Shadow */
   box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
@@ -174,7 +187,7 @@ const StateInput = styled.input`
 
   border: none;
   border-radius: 32px;
-  background: #fcf5e5;
+  background: #ffffff;
 
   /* Drop Shadow */
   box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
@@ -225,6 +238,13 @@ const WidgetContainer = styled.div`
   align-content: flex-start;
   gap: 16px;
   flex-wrap: wrap;
+`
+
+const StackedWidgetContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 `
 
 export default IndexPage

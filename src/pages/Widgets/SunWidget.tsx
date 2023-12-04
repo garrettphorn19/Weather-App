@@ -1,26 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const SunWidget = (props: {
-  sunrise:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-  sunset:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-}) => {
+const SunWidget = (props: { sunrise: number; sunset: number }) => {
   return (
     <SunContainer>
       <p>{props.sunrise}</p>
@@ -32,18 +13,12 @@ const SunWidget = (props: {
 export default SunWidget
 
 const SunContainer = styled.div`
-  display: flex;
-  width: 300px;
+  width: 616px;
   height: 300px;
-  padding: 16px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
   flex-shrink: 0;
 
   border-radius: 32px;
-  background: #fcf5e5;
+  background: #78a4b6;
 
   /* Drop Shadow */
   box-shadow: 4px 3px 11px 0px rgba(0, 0, 0, 0.1),
