@@ -12,9 +12,11 @@ import WindWidget from "./Widgets/WindWidget"
 import SunWidget from "./Widgets/SunWidget"
 
 import "./reset.css"
+import ForcastWidget from "./Widgets/ForcastWidget"
 
 const api_key = process.env.WEATHER_API_KEY
 const api_base = process.env.WEATHER_CURRENT_LINK_BASE
+const forcast_api_base = process.env.WEATHER_FORCAST_LINK_BASE
 
 const IndexPage = () => {
   // City States
@@ -22,6 +24,12 @@ const IndexPage = () => {
   const [city_name, setCityName] = useState("New York")
   const [state_code, setStateCode] = useState("NY")
   const [country_code, setCountryCode] = useState("USA")
+
+  // Location Statess
+  const [lat, setLat] = useState<number>(0)
+  const [lon, setLon] = useState<number>(0)
+
+  const [forcast, setForcast] = useState<any>([])
 
   // Tempurature States
   const [temp, setTemp] = useState<number>(0)
@@ -66,6 +74,8 @@ const IndexPage = () => {
       )
       .then((res) => {
         setDisplayCity(`${city_name}, ${state_code}`)
+        setLat(res.data.coord.lat)
+        setLon(res.data.coord.lon)
         setTemp(res.data.main.temp)
         setTempFeel(res.data.main.feels_like)
         setTempMin(res.data.main.temp_min)
@@ -79,6 +89,22 @@ const IndexPage = () => {
         setWeatherIcon(res.data.weather[0].icon)
         setWindSpeed(res.data.wind.speed)
         setWindDeg(res.data.wind.deg)
+      })
+      .catch((err) => {
+        setError(true)
+      })
+
+    getForcast()
+  }
+
+  const getForcast = () => {
+    axios
+      .get(
+        `${forcast_api_base}lat=${lat}&lon=${lon}&appid=${api_key}&units=imperial`
+      )
+      .then((res) => {
+        console.log(res.data.list)
+        setForcast(res.data.list)
       })
       .catch((err) => {
         setError(true)
@@ -117,6 +143,9 @@ const IndexPage = () => {
           weather_icon={weather_icon}
         />
       </WidgetContainer>
+      {forcast.map((day: any, key: any) => (
+        <ForcastWidget key={key} day={day} />
+      ))}
     </Container>
   )
 }
@@ -126,7 +155,6 @@ const Container = styled.div`
   padding: 32px 80px;
   flex-direction: column;
   align-items: center;
-  /* z-index: -3; */
 
   background: linear-gradient(
     73deg,
