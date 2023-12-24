@@ -136,16 +136,18 @@ const IndexPage = () => {
           <PressureWidget pressure={pressure} />
           <HumidityWidget humidity={humidity} />
         </StackedWidgetContainer>
-        <SunWidget sunrise={sunrise} sunset={sunset} />
         <WeatherWidget
           weather={weather}
           weather_description={weather_description}
           weather_icon={weather_icon}
         />
+        <SunWidget sunrise={sunrise} sunset={sunset} />
       </WidgetContainer>
-      {forcast.map((day: any, key: any) => (
-        <ForcastWidget key={key} day={day} />
-      ))}
+      <ForcastContainer>
+        {forcast.map((day: any, key: any) => (
+          <ForcastWidget key={key} day={day} />
+        ))}
+      </ForcastContainer>
     </Container>
   )
 }
@@ -272,6 +274,11 @@ const StackedWidgetContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
+`
+const ForcastContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 `
 
