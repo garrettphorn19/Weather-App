@@ -19,6 +19,9 @@ const ForcastWidget = (day: any) => {
   const month = dateObj.getMonth() + 1
   const date = dateObj.getDate()
   const dayOfWeek = weekdays[dateObj.getDay()]
+  const time = dateObj.toLocaleTimeString([], {
+    timeStyle: "short",
+  })
 
   const tempHigh = Math.round(day.day.main.temp_max, 2)
   const tempLow = Math.round(day.day.main.temp_min, 2)
@@ -28,17 +31,18 @@ const ForcastWidget = (day: any) => {
 
   return (
     <Container>
-      <div>
-        <p>
+      <TextContainer>
+        <Text>
           {month}/{date}
-        </p>
-        <p>{dayOfWeek}</p>
-      </div>
-      <div>
-        <p>↑{tempHigh}</p>
-        <p>↓{tempLow}</p>
-      </div>
-      <Icon src={`${api_link}${weatherIcon}@2x.png`} alt="Icon" />
+        </Text>
+        <Text>{dayOfWeek}</Text>
+        <TimeText>{time}</TimeText>
+      </TextContainer>
+      <TextContainer>
+        <Text>↑{tempHigh}</Text>
+        <Text>↓{tempLow}</Text>
+        <Icon src={`${api_link}${weatherIcon}@2x.png`} alt="Icon" />
+      </TextContainer>
     </Container>
   )
 }
@@ -63,7 +67,43 @@ const Container = styled.div`
     57px 56px 32px 0px rgba(0, 0, 0, 0.01), 90px 87px 35px 0px rgba(0, 0, 0, 0);
 `
 
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`
+
+const Text = styled.p`
+  color: #000000;
+  text-align: center;
+  font-family: "Neue Montreal", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  margin: 0;
+  padding: 0;
+`
+
+const TimeText = styled.p`
+  color: #6e6e6e;
+  text-align: center;
+  font-family: "Neue Montreal", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  margin: 0;
+  padding: 0;
+`
+
 const Icon = styled.img`
   width: 100px;
   height: 100px;
+
+  margin: 0;
+  padding: 0;
 `

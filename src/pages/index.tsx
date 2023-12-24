@@ -26,8 +26,8 @@ const IndexPage = () => {
   const [country_code, setCountryCode] = useState("USA")
 
   // Location Statess
-  const [lat, setLat] = useState<number>(0)
-  const [lon, setLon] = useState<number>(0)
+  const [lat, setLat] = useState<number>(40.71)
+  const [lon, setLon] = useState<number>(74.0)
 
   const [forcast, setForcast] = useState<any>([])
 
